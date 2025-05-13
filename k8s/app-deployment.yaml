@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-web
+  labels:
+    app: node-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-web
+  template:
+    metadata:
+      labels:
+        app: node-web
+    spec:
+      containers:
+        - name: node-web
+          image: node-web:1             # Image name (must match your local build)
+          ports:
+            - containerPort: 3000       # Should match the port in app.js
+          env:
+            - name: MONGO_URI
+              value: mongodb://mongoadmin:admin123@mongodb-service:27017
